@@ -1,19 +1,78 @@
-
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>كافتيريا الخير</title>
-<link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كافتيريا الخير</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icons/favicon.png" type="image/png">
 </head>
 <body>
-<h1>كافتيريا الخير</h1>
-<div id="categoriesGrid"></div>
-<div id="topProductsGrid"></div>
-<div id="productsGrid"></div>
-<button id="cartBtn">إرسال الطلب عبر WhatsApp (<span id="cartCount">0</span>)</button>
-<script src="app.js"></script>
+    <!-- قسم البطل -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 id="heroTitle">استمتع بتجربة عصائر فاخرة لا تُنسى! 🍹</h1>
+            <p id="heroDescription">
+                اكتشف عالمًا من النكهات الراقية مع عصائرنا الطازجة وسندوتشاتنا المميزة
+            </p>
+        </div>
+    </section>
+
+    <!-- قسم التصنيفات -->
+    <section id="categoriesSection">
+        <h2>التصنيفات</h2>
+        <div id="categoriesGrid"></div>
+    </section>
+
+    <!-- قسم المنتجات المميزة -->
+    <section id="topProductsSection">
+        <h2>المنتجات المميزة</h2>
+        <div id="topProductsGrid"></div>
+    </section>
+
+    <!-- قسم المنتجات -->
+    <section id="productsSection">
+        <h2>منتجاتنا</h2>
+        <div id="productsFilter"></div>
+        <div id="productsGrid"></div>
+    </section>
+
+    <!-- سلة التسوق -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <h3>سلة التسوق</h3>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <span>المجموع: </span><span id="cartTotalPrice">0 ريال</span>
+            </div>
+            <button onclick="checkout()">تأكيد الطلب</button>
+            <button onclick="closeCart()">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- لوحة التحكم -->
+    <div id="adminPanel" class="admin-panel">
+        <button onclick="logoutAdmin()">تسجيل الخروج</button>
+        <div class="admin-tabs">
+            <button class="admin-tab" data-tab="hero" onclick="switchAdminTab('hero')">الصفحة الرئيسية</button>
+            <button class="admin-tab" data-tab="top-products" onclick="switchAdminTab('top-products')">المنتجات المميزة</button>
+            <button class="admin-tab" data-tab="products" onclick="switchAdminTab('products')">المنتجات</button>
+            <button class="admin-tab" data-tab="categories" onclick="switchAdminTab('categories')">التصنيفات</button>
+            <button class="admin-tab" data-tab="orders" onclick="switchAdminTab('orders')">الطلبات</button>
+        </div>
+        <div id="heroTab" class="admin-tab-content"></div>
+        <div id="top-productsTab" class="admin-tab-content"></div>
+        <div id="productsTab" class="admin-tab-content"></div>
+        <div id="categoriesTab" class="admin-tab-content"></div>
+        <div id="ordersTab" class="admin-tab-content"></div>
+    </div>
+
+    <!-- زر WhatsApp -->
+    <a id="whatsappBtn" href="https://wa.me/967730528609" target="_blank" class="whatsapp-btn">
+        أرسل طلبك عبر واتساب
+    </a>
+
+    <script src="app.js"></script>
 </body>
 </html>
