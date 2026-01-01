@@ -1,315 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>كافتيريا الخير | خدمة 24 ساعة</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    /* ========== Variables & Reset ========== */
-    :root{
-      --primary-color:#10b981;
-      --primary-dark:#059669;
-      --dark-color:#1f2937;
-      --light-color:#f9fafb;
-      --gray-100:#f3f4f6;
-      --gray-200:#e5e7eb;
-      --radius:0.5rem;
-      --radius-lg:1rem;
-      --shadow: 0 4px 6px rgba(0,0,0,0.08);
-      --transition: all 0.25s ease;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      font-family: 'Segoe UI', 'Cairo', 'Noto Sans Arabic', sans-serif;
-      background:var(--light-color);
-      color:var(--dark-color);
-      line-height:1.6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block;height:auto}
-
-    /* ========== Layout ========== */
-    .container{max-width:1200px;margin:0 auto;padding:0 1rem}
-    .main-header{
-      position:sticky;top:0;z-index:1200;
-      background:rgba(255,255,255,0.98);backdrop-filter:blur(6px);
-      border-bottom:1px solid var(--gray-200);box-shadow:var(--shadow)
-    }
-    .header-content{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
-    .logo{display:flex;align-items:center;gap:.75rem}
-    .logo-icon{width:40px;height:40px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,var(--primary-color),#3b82f6)}
-    .logo-text{font-weight:700;font-size:1.25rem;background:linear-gradient(135deg,var(--primary-color),#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-
-    /* Hero */
-    .hero-section{padding:4rem 0;text-align:center;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;color:white;min-height:50vh;display:flex;align-items:center;justify-content:center}
-    .hero-title{font-size:2.5rem;margin-bottom:1rem}
-    .hero-sub{opacity:0.95}
-
-    /* Basic cards / grid (kept simple) */
-    .section{padding:3rem 0}
-    .grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-
-    /* ========== Admin Panel (fixed & visible) ========== */
-    /* This block ensures the admin/control panel is visible, accessible and sits above overlays/modals */
-    #admin-panel, .admin-panel{
-      position:fixed;
-      top:88px; /* below header */
-      right:20px; /* RTL: panel appears on the right */
-      width:320px;
-      max-width:calc(100% - 40px);
-      background:#fff;
-      color:var(--dark-color);
-      border-radius:var(--radius-lg);
-      box-shadow:0 20px 40px rgba(0,0,0,0.12);
-      padding:1rem;
-      z-index:4000 !important; /* ensure above modals */
-      display:block !important; /* force show */
-      visibility:visible !important;
-      opacity:1 !important;
-      transform:none !important;
-      transition:var(--transition);
-      -webkit-overflow-scrolling:touch;
-    }
-
-    /* Admin header row */
-    #admin-panel .admin-header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.75rem}
-    #admin-panel .admin-title{font-weight:700}
-    #admin-panel .admin-actions{display:flex;gap:.5rem;align-items:center}
-
-    /* Buttons inside admin */
-    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem .85rem;border-radius:8px;border:0;cursor:pointer;transition:var(--transition)}
-    .btn-close{background:transparent;color:var(--dark-color);border:1px solid var(--gray-200)}
-    .btn-primary{background:linear-gradient(135deg,var(--primary-color),var(--primary-dark));color:#fff}
-
-    /* Make sure modal overlays don't cover admin */
-    .modal-overlay{z-index:2000} /* lower than admin-panel */
-
-    /* Responsive adjustments */
-    @media (max-width:720px){
-      #admin-panel{right:12px;left:12px;top:80px;width:auto}
-    }
-
-    /* Accessibility: when admin hidden via .hidden */
-    #admin-panel.hidden{display:none !important;visibility:hidden !important;opacity:0 !important;height:0;overflow:hidden}
-  </style>
-</head>
-<body>
-  <!-- Header -->
-  <header class="main-header" role="banner">
-    <div class="container header-content">
-      <div class="logo">
-        <div class="logo-icon" aria-hidden="true"><i class="fa-solid fa-mug-saucer"></i></div>
-        <div class="logo-text">كافتيريا الخير</div>
-      </div>
-
-      <nav class="nav-menu" aria-label="القائمة الرئيسية">
-        <a class="nav-link" href="#menu">القائمة</a>
-        <a class="nav-link" href="#about">من نحن</a>
-        <a class="nav-link" href="#contact">تواصل</a>
-      </nav>
-
-      <div class="header-actions">
-        <button id="admin-toggle" class="btn btn-primary" aria-controls="admin-panel" title="عرض لوحة التحكم">
-          <i class="fa-solid fa-gear"></i><span class="sr-only">لوحة التحكم</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <main>
-    <section class="hero-section" role="region" aria-label="الواجهة">
-      <div class="container">
-        <h1 class="hero-title">كافتيريا الخير — خدمة 24 ساعة</h1>
-        <p class="hero-sub">أفضل المشروبات والحلويات مع توصيل سريع وخدمة ممتازة.</p>
-      </div>
-    </section>
-
-    <section id="menu" class="section container">
-      <h2 class="section-title">قائمة المنتجات</h2>
-      <div class="grid">
-        <div class="card" style="background:#fff;padding:1rem;border-radius:8px;box-shadow:var(--shadow)">
-          <h3>قهوة عربية</h3>
-          <p>قهوة طازجة وتحضير يدوي.</p>
-        </div>
-        <div class="card" style="background:#fff;padding:1rem;border-radius:8px;box-shadow:var(--shadow)">
-          <h3>كيك التمر</h3>
-          <p>حلوى منزلية لذيذة.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="section container">
-      <h2 class="section-title">من نحن</h2>
-      <p class="container" style="max-width:760px;margin:0 auto;text-align:center">نقدم أفضل تجربة قهوة وحلويات، متواجدون على مدار الساعة.</p>
-    </section>
-  </main>
-
-  <!-- ========== Admin / Control Panel ========== -->
-  <!-- This panel is deliberately visible by default. If you want it hidden on load, remove "data-visible" or add the "hidden" class. -->
-  <aside id="admin-panel" class="admin-panel" role="complementary" aria-labelledby="admin-title" data-visible="true">
-    <div class="admin-header">
-      <div class="admin-title" id="admin-title">لوحة التحكم</div>
-      <div class="admin-actions">
-        <button id="admin-close" class="btn btn-close" aria-label="إغلاق لوحة التحكم"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-    </div>
-
-    <div class="admin-body" style="font-size:0.95rem;line-height:1.4">
-      <p><strong>حالة النظام:</strong> تعمل</p>
-
-      <div style="margin-top:0.75rem">
-        <button id="refresh-btn" class="btn" title="تحديث البيانات"><i class="fa-solid fa-arrows-rotate"></i> تحديث</button>
-        <button id="toggle-visibility-btn" class="btn" title="إظهار/إخفاء اللوحة"><i class="fa-solid fa-eye-slash"></i> إخفاء</button>
-      </div>
-
-      <hr style="margin:0.75rem 0;border:none;border-top:1px solid var(--gray-200)">
-
-      <div style="font-size:0.9rem;color:#555">
-        <p><strong>سجل الأخطاء (console)</strong></p>
-        <ul id="admin-log" style="max-height:160px;overflow:auto;padding-left:1rem"></ul>
-      </div>
-    </div>
-  </aside>
-
-  <!-- Example modal overlay (kept for structure). modal-overlay has lower z-index than admin panel so it won't cover it. -->
-  <div class="modal-overlay" id="example-modal" aria-hidden="true" style="display:none">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="مثال مودال" style="padding:1rem">
-      <div class="modal-header">
-        <h3 class="modal-title">مثال مودال</h3>
-        <button class="modal-close" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">محتوى المودال.</div>
-      <div class="modal-footer">
-        <button class="btn btn-primary">حسناً</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="main-footer" style="background:#111;color:#fff;padding:2rem 0;margin-top:2rem">
-    <div class="container">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
-        <div>© <strong>كافتيريا الخير</strong> 2026</div>
-        <div>تواصل معنا: <a href="mailto:info@example.com" style="color:var(--primary-color)">info@example.com</a></div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ========== Scripts ========== -->
-  <script>
-    (function(){
-      // Helper: safe query
-      function $(sel){ return document.querySelector(sel) }
-
-      // Elements
-      const adminPanel = $('#admin-panel');
-      const adminToggle = $('#admin-toggle');
-      const adminClose  = $('#admin-close');
-      const toggleVisBtn = $('#toggle-visibility-btn');
-      const refreshBtn = $('#refresh-btn');
-      const adminLog = $('#admin-log');
-
-      // Safe initialization: if admin panel missing, create a minimal visible one
-      if(!adminPanel){
-        const ap = document.createElement('aside');
-        ap.id = 'admin-panel';
-        ap.className = 'admin-panel';
-        ap.innerHTML = '<div class="admin-header"><div class="admin-title">لوحة التحكم</div><div class="admin-actions"><button id="admin-close" class="btn btn-close" aria-label="إغلاق">×</button></div></div><div class="admin-body"><p>تم إنشاء لوحة تحكم افتراضية.</p></div>';
-        document.body.appendChild(ap);
-        console.warn('لوحة التحكم لم تكن موجودة لذلك تم إنشاء واحدة مؤقتة.');
-      }
-
-      // Toggle function: show/hide with class and aria
-      function toggleAdminPanel(){
-        const el = document.getElementById('admin-panel');
-        if(!el) return;
-        const isHidden = el.classList.contains('hidden');
-        if(isHidden){
-          el.classList.remove('hidden');
-          el.setAttribute('aria-hidden','false');
-        } else {
-          el.classList.add('hidden');
-          el.setAttribute('aria-hidden','true');
-        }
-      }
-
-      // Bind buttons
-      if(adminToggle){
-        adminToggle.addEventListener('click', function(e){
-          e.preventDefault();
-          toggleAdminPanel();
-        });
-      }
-      if(adminClose){
-        adminClose.addEventListener('click', function(e){
-          e.preventDefault();
-          toggleAdminPanel();
-        });
-      }
-      if(toggleVisBtn){
-        toggleVisBtn.addEventListener('click', function(){
-          toggleAdminPanel();
-        });
-      }
-      if(refreshBtn){
-        refreshBtn.addEventListener('click', function(){
-          logAdmin('تم طلب تحديث البيانات');
-          // Placeholder: place fetch/ajax refresh logic here
-          setTimeout(()=> logAdmin('تم تحديث البيانات بنجاح'), 800);
-        });
-      }
-
-      // Log helper (shows events in admin panel)
-      function logAdmin(msg){
-        const ul = document.getElementById('admin-log');
-        if(!ul) return;
-        const li = document.createElement('li');
-        const now = new Date().toLocaleTimeString();
-        li.textContent = `[${now}] ${msg}`;
-        ul.insertBefore(li, ul.firstChild);
-      }
-
-      // Report JS errors into admin log (but also keep console behavior)
-      window.addEventListener('error', function(ev){
-        try{
-          logAdmin('خطأ: ' + (ev && ev.message ? ev.message : String(ev)));
-        }catch(e){}
-      });
-
-      window.addEventListener('unhandledrejection', function(ev){
-        try{
-          logAdmin('Promise rejection: ' + (ev && ev.reason ? (ev.reason.message || ev.reason) : String(ev)));
-        }catch(e){}
-      });
-
-      // Ensure admin is visible by default (unless explicitly hidden)
-      try{
-        const ap = document.getElementById('admin-panel');
-        if(ap && ap.getAttribute('data-visible') !== 'false'){
-          ap.classList.remove('hidden');
-          ap.setAttribute('aria-hidden','false');
-        }
-      }catch(e){ console.warn(e) }
-
-      // For debug: expose toggle to window so you can run toggleAdminPanel() from Console
-      window.toggleAdminPanel = toggleAdminPanel;
-      window.logAdmin = logAdmin;
-
-      // Initial log entry
-      logAdmin('لوحة التحكم جاهزة');
-    })();
-  </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كافتيريا الخير | خدمة 24 ساعة</title>
@@ -4801,6 +4492,70 @@
         window.showOrderDetails = showOrderDetails;
         window.filterByCategory = filterByCategory;
     </script>
+</body>
+</html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>لوحة تحكم كافتيريا الخير — إدارة المنتجات</title>
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    /* for quick fallback if admin.css not loaded */
+    body { font-family: 'Cairo', sans-serif; background:#f7fafc; color:#1f2937; margin:0; padding:1rem;}
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <header class="admin-header">
+      <h1>لوحة تحكم التطبيق</h1>
+      <div class="header-actions">
+        <button id="refreshBtn" class="btn">تحديث القائمة</button>
+      </div>
+    </header>
+
+    <section class="section" id="intro-section">
+      <h2>مقدمة التطبيق</h2>
+      <textarea id="appIntro" rows="4" placeholder="نص المقدمة..."></textarea>
+      <div class="actions">
+        <button id="saveIntro" class="btn btn-primary">حفظ المقدمة</button>
+      </div>
+    </section>
+
+    <section class="section" id="product-form-section">
+      <h2>إضافة / تعديل منتج</h2>
+      <form id="productForm">
+        <input type="hidden" id="productId" />
+        <label>الاسم</label>
+        <input id="productName" required />
+        <label>الوصف</label>
+        <textarea id="productDesc" rows="3"></textarea>
+        <label>السعر</label>
+        <input id="productPrice" type="number" step="0.01" required />
+        <label>التصنيف</label>
+        <input id="productCategory" />
+        <label>الصورة (من الهاتف أو المعرض)</label>
+        <input id="productImage" type="file" accept="image/*" capture="environment" />
+        <div class="preview" id="imagePreview"></div>
+        <div class="actions">
+          <button type="submit" class="btn btn-success" id="saveProduct">حفظ المنتج</button>
+          <button type="button" class="btn btn-outline" id="resetForm">جديد</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="section" id="products-list-section">
+      <h2>قائمة المنتجات</h2>
+      <div id="productsList" class="products-grid"></div>
+    </section>
+
+    <footer class="admin-footer">
+      <p>مدير التطبيق — كافتيريا الخير</p>
+    </footer>
+  </div>
+
+  <script src="admin.js"></script>
 </body>
 </html>
 
