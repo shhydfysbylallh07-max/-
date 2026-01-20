@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>لوحة تحكم كافتيريا الخير — إدارة المنتجات</title>
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    /* for quick fallback if admin.css not loaded */
+    body { font-family: 'Cairo', sans-serif; background:#f7fafc; color:#1f2937; margin:0; padding:1rem;}
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <header class="admin-header">
+      <h1>لوحة تحكم التطبيق</h1>
+      <div class="header-actions">
+        <button id="refreshBtn" class="btn">تحديث القائمة</button>
+      </div>
+    </header>
+
+    <section class="section" id="intro-section">
+      <h2>مقدمة التطبيق</h2>
+      <textarea id="appIntro" rows="4" placeholder="نص المقدمة..."></textarea>
+      <div class="actions">
+        <button id="saveIntro" class="btn btn-primary">حفظ المقدمة</button>
+      </div>
+    </section>
+
+    <section class="section" id="product-form-section">
+      <h2>إضافة / تعديل منتج</h2>
+      <form id="productForm">
+        <input type="hidden" id="productId" />
+        <label>الاسم</label>
+        <input id="productName" required />
+        <label>الوصف</label>
+        <textarea id="productDesc" rows="3"></textarea>
+        <label>السعر</label>
+        <input id="productPrice" type="number" step="0.01" required />
+        <label>التصنيف</label>
+        <input id="productCategory" />
+        <label>الصورة (من الهاتف أو المعرض)</label>
+        <input id="productImage" type="file" accept="image/*" capture="environment" />
+        <div class="preview" id="imagePreview"></div>
+        <div class="actions">
+          <button type="submit" class="btn btn-success" id="saveProduct">حفظ المنتج</button>
+          <button type="button" class="btn btn-outline" id="resetForm">جديد</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="section" id="products-list-section">
+      <h2>قائمة المنتجات</h2>
+      <div id="productsList" class="products-grid"></div>
+    </section>
+
+    <footer class="admin-footer">
+      <p>مدير التطبيق — كافتيريا الخير</p>
+    </footer>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
